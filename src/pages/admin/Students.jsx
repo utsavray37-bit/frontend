@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { toast } from 'react-toastify';
 import api from '../../services/api.js';
 import { FaUserPlus, FaIdCard, FaUser, FaLock } from 'react-icons/fa';
@@ -53,7 +53,7 @@ export default function Students() {
     }
   }
 
-  useState(() => {
+  useEffect(() => {
     loadStudents();
   }, []);
 
