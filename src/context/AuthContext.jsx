@@ -12,21 +12,28 @@ export function AuthProvider({ children }) {
     if (raw) setUser(JSON.parse(raw));
   }, []);
 
-  function saveUser(u) {
+  function saveUser(u, token = null) {
     setUser(u);
-    if (u) localStorage.setItem('lib_user', JSON.stringify(u));
-    else localStorage.removeItem('lib_user');
+    if (u) {
+      localStorage.setItem('lib_user', JSON.stringify(u));
+      if (token) {
+        localStorage.setItem('token', token);
+      }
+    } else {
+      localStorage.removeItem('lib_user');
+      localStorage.removeItem('token');
+    }
   }
 
   async function loginAdmin(email, password) {
     const res = await api.post('/admin/login', { email, password });
-    saveUser(res.data.user);
+    saveUser(res.data.user, res.data.token);
     toast.success('Logged in as admin');
   }
 
   async function loginStudent(enrollmentNumber, password) {
     const res = await api.post('/student/login', { enrollmentNumber, password });
-    saveUser(res.data.user);
+    saveUser(res.data.user, res.data.token);
     toast.success('Logged in as student');
   }
 

@@ -15,10 +15,16 @@ export default function Students() {
 
   async function loadStudents() {
     try {
+      setLoading(true);
       const res = await api.get('/admin/students');
       setStudents(res.data);
     } catch (error) {
-      toast.error('Failed to load students');
+      // Only show error if not a 401 (authentication will handle redirects)
+      if (error?.response?.status !== 401) {
+        toast.error('Failed to load students');
+      }
+    } finally {
+      setLoading(false);
     }
   }
 
@@ -175,7 +181,13 @@ export default function Students() {
               ))}
             </tbody>
           </table>
-          {students.length === 0 && (
+          {loading && students.length === 0 && (
+            <div className="text-center py-8">
+              <div className="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-indigo-600"></div>
+              <p className="mt-2 text-gray-500 dark:text-gray-400">Loading students...</p>
+            </div>
+          )}
+          {!loading && students.length === 0 && (
             <div className="text-center py-8 text-gray-500 dark:text-gray-400">
               No students found. Add your first student above.
             </div>
