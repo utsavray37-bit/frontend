@@ -1,0 +1,92 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    @apply box-border;
+  }
+  
+  html {
+    /* Base font size: 16px on mobile, 18px on tablet, 20px on desktop for 125% scale effect */
+    font-size: 16px;
+  }
+  
+  @media (min-width: 768px) {
+    html {
+      font-size: 18px;
+    }
+  }
+  
+  @media (min-width: 1024px) {
+    html {
+      font-size: 20px; /* This creates a ~125% scaling effect on desktop */
+    }
+  }
+  
+  html, body, #root {
+    @apply w-full h-full overflow-x-hidden;
+  }
+  
+  body {
+    @apply bg-gradient-to-br from-gray-50 via-blue-50 to-purple-50 text-gray-900 antialiased;
+  }
+  
+  body.dark {
+    @apply bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 text-gray-100;
+  }
+}
+
+@layer components {
+  .card-gradient {
+    @apply bg-gradient-to-br from-white to-gray-50 dark:from-gray-800 dark:to-gray-900;
+  }
+  
+  .btn-primary {
+    @apply bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white font-medium px-4 py-2 lg:px-6 lg:py-3 rounded-lg shadow-md hover:shadow-lg transition-all duration-200 transform hover:-translate-y-0.5;
+  }
+  
+  .btn-secondary {
+    @apply bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 text-white font-medium px-4 py-2 lg:px-6 lg:py-3 rounded-lg shadow-md hover:shadow-lg transition-all duration-200;
+  }
+  
+  .input-field {
+    @apply border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 p-2.5 lg:p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-200 text-sm lg:text-base;
+  }
+  
+  /* Performance optimizations */
+  .gpu-accelerated {
+    @apply transform-gpu will-change-transform;
+  }
+  
+  /* Reduce motion for users who prefer it */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-gray-100 dark:bg-gray-800;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-indigo-400 dark:bg-indigo-600 rounded-full;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-indigo-600 dark:bg-indigo-500;
+}
+
+
