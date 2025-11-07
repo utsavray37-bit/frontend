@@ -10,8 +10,19 @@ export default function Students() {
   const [formData, setFormData] = useState({
     name: '',
     enrollmentNumber: '',
-    password: ''
+    password: '',
+    rollNumber: '',
+    branch: '',
+    session: ''
   });
+
+  const branches = [
+    'Computer Science and Engineering',
+    'Electrical Engineering',
+    'Electronics',
+    'Civil Engineering',
+    'Mechanical Engineering'
+  ];
 
   async function loadStudents() {
     try {
@@ -35,7 +46,7 @@ export default function Students() {
     try {
       const res = await api.post('/admin/students', formData);
       toast.success(res.data.message);
-      setFormData({ name: '', enrollmentNumber: '', password: '' });
+      setFormData({ name: '', enrollmentNumber: '', password: '', rollNumber: '', branch: '', session: '' });
       setShowAddForm(false);
       loadStudents();
     } catch (error) {
@@ -119,22 +130,72 @@ export default function Students() {
                   required
                 />
               </div>
-            </div>
 
-            <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                <FaLock className="inline mr-2" />
-                Password (min 6 characters)
-              </label>
-              <input
-                type="password"
-                className="w-full input-field"
-                placeholder="Enter password"
-                value={formData.password}
-                onChange={(e) => setFormData({ ...formData, password: e.target.value })}
-                required
-                minLength={6}
-              />
+              <div>
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                  <FaIdCard className="inline mr-2" />
+                  Roll Number
+                </label>
+                <input
+                  type="text"
+                  className="w-full input-field"
+                  placeholder="2023CS001"
+                  value={formData.rollNumber}
+                  onChange={(e) => setFormData({ ...formData, rollNumber: e.target.value })}
+                  required
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                  <FaUser className="inline mr-2" />
+                  Branch/Department
+                </label>
+                <select
+                  className="w-full input-field"
+                  value={formData.branch}
+                  onChange={(e) => setFormData({ ...formData, branch: e.target.value })}
+                  required
+                >
+                  <option value="">Select Branch</option>
+                  {branches.map((branch) => (
+                    <option key={branch} value={branch}>
+                      {branch}
+                    </option>
+                  ))}
+                </select>
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                  <FaIdCard className="inline mr-2" />
+                  Session
+                </label>
+                <input
+                  type="text"
+                  className="w-full input-field"
+                  placeholder="2023-2024"
+                  value={formData.session}
+                  onChange={(e) => setFormData({ ...formData, session: e.target.value })}
+                  required
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                  <FaLock className="inline mr-2" />
+                  Password (min 6 characters)
+                </label>
+                <input
+                  type="password"
+                  className="w-full input-field"
+                  placeholder="Enter password"
+                  value={formData.password}
+                  onChange={(e) => setFormData({ ...formData, password: e.target.value })}
+                  required
+                  minLength={6}
+                />
+              </div>
             </div>
 
             <button
@@ -157,6 +218,9 @@ export default function Students() {
               <tr>
                 <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase">Name</th>
                 <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase">Enrollment</th>
+                <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase">Roll No.</th>
+                <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase">Branch</th>
+                <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase">Session</th>
                 <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase">Borrowed</th>
                 <th className="px-4 py-3 text-right text-xs font-medium text-gray-500 dark:text-gray-300 uppercase">Actions</th>
               </tr>
@@ -166,6 +230,9 @@ export default function Students() {
                 <tr key={student._id} className="hover:bg-gray-50 dark:hover:bg-gray-700">
                   <td className="px-4 py-3 text-sm text-gray-900 dark:text-gray-100">{student.name}</td>
                   <td className="px-4 py-3 text-sm text-gray-600 dark:text-gray-400">{student.enrollmentNumber}</td>
+                  <td className="px-4 py-3 text-sm text-gray-600 dark:text-gray-400">{student.rollNumber || 'N/A'}</td>
+                  <td className="px-4 py-3 text-sm text-gray-600 dark:text-gray-400">{student.branch || 'N/A'}</td>
+                  <td className="px-4 py-3 text-sm text-gray-600 dark:text-gray-400">{student.session || 'N/A'}</td>
                   <td className="px-4 py-3 text-sm text-gray-600 dark:text-gray-400">
                     {student.borrowedBooks?.filter(b => b.status === 'borrowed').length || 0} books
                   </td>
