@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext.jsx';
 import { toast } from 'react-toastify';
 import { FaUserGraduate, FaIdCard, FaLock, FaSignInAlt } from 'react-icons/fa';
@@ -91,8 +91,18 @@ export default function StudentLogin() {
           </form>
           
           {/* Footer */}
-          <div className="mt-6 text-center text-sm text-gray-600 dark:text-gray-400">
-            <p>Demo credentials are pre-filled</p>
+          <div className="mt-6 space-y-3">
+            <div className="text-center">
+              <Link 
+                to="/forgot-password" 
+                className="text-sm text-emerald-600 dark:text-emerald-400 hover:underline"
+              >
+                Forgot password?
+              </Link>
+            </div>
+            <div className="text-center text-sm text-gray-600 dark:text-gray-400">
+              <p>Demo credentials are pre-filled</p>
+            </div>
           </div>
         </div>
       </div>

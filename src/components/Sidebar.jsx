@@ -1,5 +1,5 @@
 import { NavLink } from 'react-router-dom';
-import { FaBook, FaExchangeAlt, FaHome, FaKey, FaListUl, FaUserGraduate, FaTachometerAlt, FaTrophy, FaStar } from 'react-icons/fa';
+import { FaBook, FaExchangeAlt, FaHome, FaKey, FaListUl, FaUserGraduate, FaTachometerAlt, FaTrophy, FaStar, FaUsers } from 'react-icons/fa';
 
 function Item({ to, icon: Icon, label }) {
   return (
@@ -42,6 +42,7 @@ export default function Sidebar({ variant = 'admin' }) {
           <Item to="/admin" icon={FaTachometerAlt} label="Dashboard" />
           <Item to="/admin/books" icon={FaListUl} label="Books" />
           <Item to="/admin/borrow-return" icon={FaExchangeAlt} label="Borrow / Return" />
+          <Item to="/admin/students" icon={FaUsers} label="Students" />
         </nav>
       ) : (
         <nav className="space-y-2">

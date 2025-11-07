@@ -4,9 +4,12 @@ import App from './App.jsx';
 import Home from './pages/Home.jsx';
 import AdminLogin from './pages/AdminLogin.jsx';
 import StudentLogin from './pages/StudentLogin.jsx';
+import AdminForgotPassword from './pages/AdminForgotPassword.jsx';
+import StudentForgotPassword from './pages/StudentForgotPassword.jsx';
 import Books from './pages/admin/Books.jsx';
 import BorrowReturn from './pages/admin/BorrowReturn.jsx';
 import AdminDashboard from './pages/admin/Dashboard.jsx';
+import Students from './pages/admin/Students.jsx';
 import BorrowedBooks from './pages/student/BorrowedBooks.jsx';
 import UpdatePassword from './pages/student/UpdatePassword.jsx';
 import StudentDashboard from './pages/student/Dashboard.jsx';
@@ -26,7 +29,9 @@ export const router = createBrowserRouter([
         element: <PublicLayout />,
         children: [
           { path: 'login', element: <StudentLogin /> },
+          { path: 'forgot-password', element: <StudentForgotPassword /> },
           { path: 'admin/login', element: <AdminLogin /> },
+          { path: 'admin/forgot-password', element: <AdminForgotPassword /> },
         ],
       },
 
@@ -41,6 +46,7 @@ export const router = createBrowserRouter([
           { index: true, element: <AdminDashboard /> },
           { path: 'books', element: <Books /> },
           { path: 'borrow-return', element: <BorrowReturn /> },
+          { path: 'students', element: <Students /> },
         ],
       },
 
